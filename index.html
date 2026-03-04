@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地震學大師：第一章互動練習</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .option-card:hover {
+            transform: translateY(-2px);
+            transition: all 0.2s;
+        }
+        .correct {
+            background-color: #d1fae5 !important;
+            border-color: #10b981 !important;
+            color: #065f46;
+        }
+        .wrong {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-3xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-slate-800 mb-2">🌍 地震學第一章 🌋</h1>
+            <p class="text-lg text-slate-600">你的專屬地震學導師，帶你探索地底的聲音</p>
+            <div class="mt-4 inline-block bg-white px-4 py-2 rounded-full shadow-sm text-sm text-indigo-600 font-semibold">
+                📖 基礎定義與社會應用篇
+            </div>
+        </header>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="space-y-8">
+            <!-- Questions will be injected here -->
+        </div>
+
+        <!-- Result Section -->
+        <div id="final-result" class="hidden mt-12 p-8 bg-white rounded-2xl shadow-xl text-center">
+            <h2 class="text-3xl font-bold mb-4">測驗完成！✨</h2>
+            <p id="score-text" class="text-xl mb-6"></p>
+            <button onclick="location.reload()" class="bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-indigo-700 transition">
+                再測一次 🔄
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-slate-400 text-sm">
+            本教材由地震學大師製作，結合經典教材內容。
+        </footer>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "根據地震學的定義，這門學科主要研究的是什麼？",
+                options: ["固體地球中的彈性波或聲波", "火山噴發的岩漿成分", "大氣層中的氣流運動", "海洋洋流的循環"],
+                correct: 0,
+                rationale: "地震學的核心在於研究彈性波（地震波）在地球內部的傳播方式。就像用聽診器聽地球的心跳！"
+            },
+            {
+                question: "地震儀紀錄下來的地面運動圖表稱為什麼？",
+                options: ["地震儀 (Seismometer)", "地震圖 (Seismogram)", "斷層掃描 (CT Scan)", "等震圖 (Isoseismal Map)"],
+                correct: 1,
+                rationale: "地震儀是機器，紀錄下來的『紙本或數位訊號』叫做『地震圖』。就像心電圖是心臟跳動的紀錄。"
+            },
+            {
+                question: "為什麼地震學被認為是研究地球深層內部的有力工具？",
+                options: ["因為人類可以輕鬆鑽探到地核", "因為地震波可以穿透地球並攜帶內部資訊", "因為地震發生的頻率非常固定", "因為地震波只會在地球表面傳遞"],
+                correct: 1,
+                rationale: "目前的鑽探最深才 13 公里，地核有 6300 多公里深！我們只能靠地震波像 X 光一樣『穿透』地球來觀察。"
+            },
+            {
+                question: "1960 年代後期，哪一個理論的發展徹底改變了地質學與地震學的思維？",
+                options: ["大霹靂理論", "板塊構造論 (Plate Tectonics)", "地心說", "絕對時間理論"],
+                correct: 1,
+                rationale: "板塊構造論解釋了為什麼地震大多發生在板塊邊緣，這場『革命』統一了地科各領域的觀點。"
+            },
+            {
+                question: "關於地震『預測 (Prediction)』，目前的科學現狀為何？",
+                options: ["科學家已經可以精準預測具體時間", "目前的技術尚無法實現可靠的短中期預報", "預測地震完全是不可能的", "只要觀察動物行為就能精準預測"],
+                correct: 1,
+                rationale: "雖然我們可以推算未來幾十年的發生機率，但要精準說出『明天幾點幾分會地震』，目前還做不到喔。"
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+        let userScores = 0;
+        let answeredCount = 0;
+
+        function renderQuiz() {
+            quizData.forEach((data, index) => {
+                const questionEl = document.createElement('div');
+                questionEl.className = 'bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-100';
+                questionEl.innerHTML = `
+                    <p class="text-indigo-500 font-bold mb-2">問題 ${index + 1}</p>
+                    <h3 class="text-xl font-bold text-slate-800 mb-6">${data.question}</h3>
+                    <div class="grid gap-4" id="options-${index}">
+                        ${data.options.map((opt, i) => `
+                            <button onclick="checkAnswer(${index}, ${i})" class="option-card w-full text-left p-4 rounded-xl border-2 border-slate-100 bg-slate-50 hover:bg-white hover:border-indigo-200 transition text-slate-700">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback-${index}" class="hidden mt-6 p-4 rounded-xl text-sm font-medium"></div>
+                `;
+                quizContainer.appendChild(questionEl);
+            });
+        }
+
+        window.checkAnswer = function(qIndex, oIndex) {
+            const feedbackEl = document.getElementById(`feedback-${qIndex}`);
+            const optionsContainer = document.getElementById(`options-${qIndex}`);
+            const buttons = optionsContainer.querySelectorAll('button');
+            
+            // Prevent double clicking
+            if (!feedbackEl.classList.contains('hidden')) return;
+
+            const isCorrect = oIndex === quizData[qIndex].correct;
+            
+            buttons[oIndex].classList.add(isCorrect ? 'correct' : 'wrong');
+            buttons[quizData[qIndex].correct].classList.add('correct');
+
+            feedbackEl.innerHTML = `
+                <p class="font-bold mb-1">${isCorrect ? '✅ 太棒了！答對囉！' : '❌ 沒關係，再接再厲！'}</p>
+                <p class="text-slate-600 leading-relaxed">${quizData[qIndex].rationale}</p>
+            `;
+            feedbackEl.className = `mt-6 p-4 rounded-xl text-sm ${isCorrect ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'} block`;
+
+            if (isCorrect) userScores++;
+            answeredCount++;
+
+            if (answeredCount === quizData.length) {
+                showFinalResult();
+            }
+        };
+
+        function showFinalResult() {
+            const finalResult = document.getElementById('final-result');
+            const scoreText = document.getElementById('score-text');
+            finalResult.classList.remove('hidden');
+            scoreText.innerText = `你在 ${quizData.length} 題中答對了 ${userScores} 題！繼續加油，你快要成為地震學小專家了！🌊`;
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        renderQuiz();
+    </script>
+</body>
+</html>
