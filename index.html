@@ -3,156 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>地震學大師：第一章互動練習</title>
+    <title>地震學第一章：深度互動導覽</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #f0f4f8;
-        }
-        .option-card:hover {
-            transform: translateY(-2px);
-            transition: all 0.2s;
-        }
-        .correct {
-            background-color: #d1fae5 !important;
-            border-color: #10b981 !important;
-            color: #065f46;
-        }
-        .wrong {
-            background-color: #fee2e2 !important;
-            border-color: #ef4444 !important;
-            color: #991b1b;
-        }
+        .faq-card { transition: all 0.3s ease; }
+        .faq-card:hover { transform: translateY(-3px); box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1); }
+        .math { font-family: 'Times New Roman', Times, serif; font-style: italic; }
+        .highlight-box { border-left: 4px solid #4f46e5; background-color: #f5f3ff; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; }
+        .benioff-box { border: 1px solid #e2e8f0; background: #fff; padding: 1.5rem; border-radius: 1rem; }
+        .path-analysis { border-left: 4px solid #f59e0b; background-color: #fffbeb; padding: 1rem; }
+        .xray-box { border-left: 4px solid #10b981; background-color: #ecfdf5; padding: 1rem; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="bg-slate-50 text-slate-800 font-sans">
 
-    <div class="max-w-3xl mx-auto">
-        <!-- Header -->
-        <header class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-slate-800 mb-2">🌍 地震學第一章 🌋</h1>
-            <p class="text-lg text-slate-600">你的專屬地震學導師，帶你探索地底的聲音</p>
-            <div class="mt-4 inline-block bg-white px-4 py-2 rounded-full shadow-sm text-sm text-indigo-600 font-semibold">
-                📖 基礎定義與社會應用篇
-            </div>
-        </header>
-
-        <!-- Quiz Container -->
-        <div id="quiz-container" class="space-y-8">
-            <!-- Questions will be injected here -->
+    <header class="bg-gradient-to-r from-indigo-800 to-blue-700 text-white py-16 px-6 shadow-xl text-center md:text-left">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">🌍 地震學：地球的超音波實驗</h1>
+            <p class="text-xl opacity-90 leading-relaxed">
+                從微小的震動到板塊的碰撞，我們正在解讀這顆星球最深處的「心跳聲」。
+            </p>
         </div>
+    </header>
 
-        <!-- Result Section -->
-        <div id="final-result" class="hidden mt-12 p-8 bg-white rounded-2xl shadow-xl text-center">
-            <h2 class="text-3xl font-bold mb-4">測驗完成！✨</h2>
-            <p id="score-text" class="text-xl mb-6"></p>
-            <button onclick="location.reload()" class="bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-indigo-700 transition">
-                再測一次 🔄
-            </button>
-        </div>
+    <main class="max-w-4xl mx-auto py-12 px-6 space-y-12">
 
-        <!-- Footer -->
-        <footer class="mt-12 text-center text-slate-400 text-sm">
-            本教材由地震學大師製作，結合經典教材內容。
-        </footer>
-    </div>
-
-    <script>
-        const quizData = [
-            {
-                question: "根據地震學的定義，這門學科主要研究的是什麼？",
-                options: ["固體地球中的彈性波或聲波", "火山噴發的岩漿成分", "大氣層中的氣流運動", "海洋洋流的循環"],
-                correct: 0,
-                rationale: "地震學的核心在於研究彈性波（地震波）在地球內部的傳播方式。就像用聽診器聽地球的心跳！"
-            },
-            {
-                question: "地震儀紀錄下來的地面運動圖表稱為什麼？",
-                options: ["地震儀 (Seismometer)", "地震圖 (Seismogram)", "斷層掃描 (CT Scan)", "等震圖 (Isoseismal Map)"],
-                correct: 1,
-                rationale: "地震儀是機器，紀錄下來的『紙本或數位訊號』叫做『地震圖』。就像心電圖是心臟跳動的紀錄。"
-            },
-            {
-                question: "為什麼地震學被認為是研究地球深層內部的有力工具？",
-                options: ["因為人類可以輕鬆鑽探到地核", "因為地震波可以穿透地球並攜帶內部資訊", "因為地震發生的頻率非常固定", "因為地震波只會在地球表面傳遞"],
-                correct: 1,
-                rationale: "目前的鑽探最深才 13 公里，地核有 6300 多公里深！我們只能靠地震波像 X 光一樣『穿透』地球來觀察。"
-            },
-            {
-                question: "1960 年代後期，哪一個理論的發展徹底改變了地質學與地震學的思維？",
-                options: ["大霹靂理論", "板塊構造論 (Plate Tectonics)", "地心說", "絕對時間理論"],
-                correct: 1,
-                rationale: "板塊構造論解釋了為什麼地震大多發生在板塊邊緣，這場『革命』統一了地科各領域的觀點。"
-            },
-            {
-                question: "關於地震『預測 (Prediction)』，目前的科學現狀為何？",
-                options: ["科學家已經可以精準預測具體時間", "目前的技術尚無法實現可靠的短中期預報", "預測地震完全是不可能的", "只要觀察動物行為就能精準預測"],
-                correct: 1,
-                rationale: "雖然我們可以推算未來幾十年的發生機率，但要精準說出『明天幾點幾分會地震』，目前還做不到喔。"
-            }
-        ];
-
-        const quizContainer = document.getElementById('quiz-container');
-        let userScores = 0;
-        let answeredCount = 0;
-
-        function renderQuiz() {
-            quizData.forEach((data, index) => {
-                const questionEl = document.createElement('div');
-                questionEl.className = 'bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-100';
-                questionEl.innerHTML = `
-                    <p class="text-indigo-500 font-bold mb-2">問題 ${index + 1}</p>
-                    <h3 class="text-xl font-bold text-slate-800 mb-6">${data.question}</h3>
-                    <div class="grid gap-4" id="options-${index}">
-                        ${data.options.map((opt, i) => `
-                            <button onclick="checkAnswer(${index}, ${i})" class="option-card w-full text-left p-4 rounded-xl border-2 border-slate-100 bg-slate-50 hover:bg-white hover:border-indigo-200 transition text-slate-700">
-                                ${opt}
-                            </button>
-                        `).join('')}
+        <section class="faq-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-6 flex items-center">
+                <span class="mr-2">🔬</span> 1. 地震學的三大核心要素
+            </h2>
+            <div class="mb-8 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="flex-1">
+                        <img src="https://raw.githubusercontent.com/u11310036-netizen/seismology_ch1/main/fig1-2.6.png" alt="地震學基礎幾何架構 Fig 1.1-1" class="w-full h-auto rounded-lg shadow-md border border-white">
+                        <p class="text-center text-xs text-slate-400 mt-2 italic">Fig 1.1-1 地震學實驗的基礎幾何架構</p>
                     </div>
-                    <div id="feedback-${index}" class="hidden mt-6 p-4 rounded-xl text-sm font-medium"></div>
-                `;
-                quizContainer.appendChild(questionEl);
-            });
-        }
+                    <div class="flex-1 space-y-4 text-sm leading-relaxed">
+                        <p>地震學研究包含 <strong>震源 (Source)</strong>、<strong>介質 (Medium)</strong> 與 <strong>接收站 (Receiver)</strong>。三者關係為：<em>到達時間 = 發震時間 + 走時</em>。</p>
+                        <div class="p-3 bg-white rounded border border-slate-200 text-xs italic">
+                            💡 呼應講義 1.1.1 Overview：地震波如同「信使」，從震源出發，在傳播過程中受到介質影響，最後在接收端留下珍貴的<strong>地震圖 (Seismogram)</strong>。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        window.checkAnswer = function(qIndex, oIndex) {
-            const feedbackEl = document.getElementById(`feedback-${qIndex}`);
-            const optionsContainer = document.getElementById(`options-${qIndex}`);
-            const buttons = optionsContainer.querySelectorAll('button');
+        <section class="faq-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                <span class="mr-2">📐</span> 2. 為什麼射線是「彎曲」的？
+            </h2>
             
-            // Prevent double clicking
-            if (!feedbackEl.classList.contains('hidden')) return;
+            <div class="mb-10 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <img src="https://raw.githubusercontent.com/u11310036-netizen/seismology_ch1/main/fig1-2.18-1.png" alt="地震波彎曲路徑示意圖 Fig 1.2-18-1" class="w-full h-auto rounded-xl shadow-lg border-2 border-white">
+                        <p class="text-center text-xs text-slate-500 mt-3 italic text-balance">Fig 1.2-18-1 穿越地球內部的彎曲傳播路徑 (Curved Paths)</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="path-analysis">
+                            <h3 class="font-bold text-amber-900 mb-1">🌀 連續折射的結果</h3>
+                            <p class="text-sm text-slate-700 leading-relaxed">
+                                圖中最關鍵的特徵在於地震波路徑是<strong>彎曲的</strong>。因為地球內部越深處壓力越大，岩石屬性改變使得<strong>波速隨深度增加</strong>。當波從低速地層進入高速地層，會不斷向地表方向彎折，形成圖中的 U 型曲線。
+                            </p>
+                        </div>
+                        <div class="xray-box">
+                            <h3 class="font-bold text-emerald-900 mb-1">📸 透視地球的「X 光」</h3>
+                            <p class="text-sm text-slate-700 leading-relaxed">
+                                這完美呼應了教材 <strong>1.1.1 節</strong>：人類無法鑽探地心，但透過分析這些走過不同路徑的地震波到達時間與能量，我們得以推斷出地殼、地函、核慢邊界等複雜分層結構。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            const isCorrect = oIndex === quizData[qIndex].correct;
-            
-            buttons[oIndex].classList.add(isCorrect ? 'correct' : 'wrong');
-            buttons[quizData[qIndex].correct].classList.add('correct');
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <div class="border border-slate-200 p-2 rounded-xl bg-white shadow-sm">
+                        <img src="https://raw.githubusercontent.com/u11310036-netizen/seismology_ch1/main/fig1-2.19.png" alt="地震波彎曲機制 Fig 1.2-19" class="w-full h-auto rounded-lg">
+                        <p class="text-center text-xs text-slate-500 mt-2 italic text-balance">Fig 1.2-19 波速梯度與司乃耳定律應用</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="bg-indigo-900 text-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-lg font-bold mb-3 flex items-center italic">
+                            <span class="mr-2">📡</span> 地震學的「反演」科學
+                        </h3>
+                        <ul class="text-sm space-y-3 opacity-90">
+                            <li><strong>● 旅行時間 (Travel Time)：</strong> 記錄波抵達全球各地測站的精確時間。</li>
+                            <li><strong>● 反演推算 (Inversion)：</strong> 利用大量彎曲路徑數據，數學化地重建地底下的速度圖譜，這就是地球的「超音波掃描」。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            feedbackEl.innerHTML = `
-                <p class="font-bold mb-1">${isCorrect ? '✅ 太棒了！答對囉！' : '❌ 沒關係，再接再厲！'}</p>
-                <p class="text-slate-600 leading-relaxed">${quizData[qIndex].rationale}</p>
-            `;
-            feedbackEl.className = `mt-6 p-4 rounded-xl text-sm ${isCorrect ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'} block`;
+        <section class="faq-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                <span class="mr-2">🌎</span> 3. 板塊邊界的視覺證據
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-6">
+                    <img src="https://raw.githubusercontent.com/u11310036-netizen/seismology_ch1/main/fig1-2.15.png" alt="全球地震與板塊邊界 Fig 1.2-15" class="w-full h-auto rounded-xl shadow-lg border border-slate-200">
+                    <p class="text-center text-xs text-slate-500 mt-2 italic text-balance">Fig 1.2-15 地震帶描繪出的板塊邊界圖</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-indigo-50 p-5 rounded-xl text-sm leading-relaxed border border-indigo-100">
+                        <p>地震分佈高度集中在特定的「狹長帶狀區域」，精確描繪出了<strong>板塊邊界</strong>。包含：環太平洋地震帶（隱沒帶）、中洋脊系統（張裂邊界）與大陸碰撞帶。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            if (isCorrect) userScores++;
-            answeredCount++;
+        <section class="faq-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                <span class="mr-2">🗺️</span> 4. 貝尼奧夫帶：隱沒板塊的 3D 剖面
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="border border-slate-200 p-2 rounded-xl bg-white shadow-sm">
+                    <img src="https://raw.githubusercontent.com/u11310036-netizen/seismology_ch1/main/fig1-2.16.png" alt="貝尼奧夫帶詳細分佈圖 Fig 1.2-16" class="w-full h-auto rounded-lg">
+                    <p class="text-center text-xs text-slate-500 mt-2 italic text-balance">Fig 1.2-16 湯加隱沒帶的震源深度剖面圖</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="benioff-box shadow-sm text-sm">
+                        <p><strong>深源地震的奧秘：</strong> 海洋板塊冷而堅硬，隱沒入熱地函時仍能維持脆性，這證實了板塊隱沒的動態過程。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            if (answeredCount === quizData.length) {
-                showFinalResult();
-            }
-        };
+        <section class="faq-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                <span class="mr-2">🛡️</span> 5. 社會應用：核爆監測與判別
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <img src="https://raw.githubusercontent.com/u11310036-netizen/seismology_ch1/main/fig1-2.3.png" alt="核爆與地震辨別圖 Fig 1.2-20" class="w-full h-auto rounded-lg shadow-sm border border-slate-200">
+                <p class="text-sm text-slate-700 leading-relaxed">
+                    透過對比 <strong>體波規模 ($m_b$)</strong> 與 <strong>地震矩 ($M_0$)</strong>，地震學家可以精確區分核試爆（主要產生壓縮 P 波）與天然地震（剪切滑動為主）。
+                </p>
+            </div>
+        </section>
 
-        function showFinalResult() {
-            const finalResult = document.getElementById('final-result');
-            const scoreText = document.getElementById('score-text');
-            finalResult.classList.remove('hidden');
-            scoreText.innerText = `你在 ${quizData.length} 題中答對了 ${userScores} 題！繼續加油，你快要成為地震學小專家了！🌊`;
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
+        <section class="faq-card bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+            <h2 class="text-2xl font-bold text-red-700 mb-6 flex items-center">
+                <span class="mr-2">🔥</span> 6. 致命的連鎖反應：次生災害
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-5 bg-orange-50 rounded-xl border border-orange-100 text-xs">
+                    <h3 class="font-bold text-orange-800 mb-1 text-sm">🔥 火災</h3>
+                    <p>瓦斯管斷裂引發。1906 舊金山地震中，火災損失是震動破壞的 10 倍。</p>
+                </div>
+                <div class="p-5 bg-blue-50 rounded-xl border border-blue-100 text-xs">
+                    <h3 class="font-bold text-blue-800 mb-1 text-sm">🌊 海嘯</h3>
+                    <p>海床位移引起。1896 三陸地震引發 35m 巨浪造成 2.6 萬人罹難。</p>
+                </div>
+                <div class="p-5 bg-stone-50 rounded-xl border border-stone-100 text-xs">
+                    <h3 class="font-bold text-stone-800 mb-1 text-sm">⛰️ 山崩</h3>
+                    <p>強震搖鬆陡坡。1970 秘魯地震引發的冰石山崩以時速 300 公里傾瀉。</p>
+                </div>
+            </div>
+        </section>
 
-        renderQuiz();
-    </script>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 px-6 text-center">
+        <p class="mb-2 text-white font-bold">地震學第一章：互動學習導覽</p>
+        <p class="text-sm italic">「地震學讓我們不必挖掘，就能看見地心。」 — Keiiti Aki, 1980</p>
+    </footer>
+
 </body>
 </html>
